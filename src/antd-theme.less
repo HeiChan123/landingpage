@@ -1,0 +1,314 @@
+/*@import '~antd/lib/style/themes/default.less';
+@import '~antd/dist/antd.less';
+
+/*
+    Customization of the ant theme.
+    As ant does not apply the BEM standard, neither does the overrides.
+*/
+
+
+/* Default css breakpoints for ant design */
+@xs: 480px;
+@sm: 576px;
+@md: 768px;
+@lg: 992px;
+@xl: 1200px;
+@xxl: 1600px;
+
+/* Primary overrides for custom theme */
+@primary-color: #d0ad71;
+@secondary-color: rgb(31, 184, 154);
+@success-color: #52c41a;
+@warning-color: #faad14;
+@error-color: #f5222d;
+@font-size-base: 14px;
+@heading-color: @primary-color;
+@text-color: rgba(0, 0, 0, 0.65);
+@text-color-secondary: rgba(0, 0, 0, 0.45);
+@disabled-color: rgba(0, 0, 0, 0.25);
+@border-radius-base: 16px;
+@border-color-base: #d9d9d9;
+@box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+/* MORE SPECIFIC OVERRIDES OF ELEMENTS */
+
+/** Layouts **/
+.ant-layout-footer {
+    background: transparent;
+}
+
+.ant-layout-content {
+    min-height: unset;
+}
+
+/* Side bar */
+.ant-layout-sider-light {
+    background-color: rgb(226,226,226);
+}
+
+.ant-layout {
+    background-color: transparent;
+}
+
+.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left  {
+    border: none;
+}
+
+.ant-menu-item {
+    white-space: nowrap !important;
+}
+
+.ant-layout-sider {
+    max-width: fit-content !important;
+    flex-grow: inherit !important;
+}
+/* Button overrides */
+.ant-btn {
+    text-transform: uppercase;
+}
+
+.ant-btn-primary {
+    background: @secondary-color;
+    background: linear-gradient(90deg, rgba(17,154,132,1) 0%, rgba(31,184,154,1) 100%);
+    border: 0;
+}
+
+
+.ant-btn-primary {
+    &:focus, &:hover {
+        background:@secondary-color;
+        background: linear-gradient(90deg, rgb(20, 173, 148) 0%, rgb(35, 202, 169) 100%);
+        border: 0;
+    }
+}
+
+.ant-btn-default {
+    border-width: 2px;
+    border-color: @primary-color;
+    color: @primary-color;
+    
+}
+
+.ant-btn-lg {
+    min-width: 150px;
+    min-height: 55px;
+}
+
+.ant-select {
+    &.ant-select-lg {
+        .ant-select-selector {
+            min-width: 200px;
+            min-height: 55px;
+            border-radius: 26px;
+            border-color: @primary-color;
+            text-transform: uppercase;
+            color: @primary-color;
+            .ant-select-selection-item {
+                display: flex;
+                align-items: center;
+                padding-left: 12px;
+            }
+        }
+    }
+}
+
+.ant-input-number{
+    width: 100%;
+}
+
+/* input overrides */
+input[type="text"].ant-input.ant-input-lg,
+.ant-input-password.ant-input-password-large.ant-input-affix-wrapper.ant-input-affix-wrapper-lg {
+    border-radius: 20px;
+}
+/* Typography overrides (Mostly because ant doesn't support responsive font sizes)*/
+h1.ant-typography {
+    font-size: 60px;
+    text-transform: uppercase;
+    line-height: 60px;;
+}
+
+h2.ant-typography {
+    font-size: 30px;
+    line-height: 30px;
+    color: #261500;
+}
+
+span.ant-typography {
+    font-size: 18px;
+    color: #8c8c8c
+}
+
+/* typography defaults */
+h1,h2,h3,h4,h5,h6{
+    &.ant-typography{
+        letter-spacing: 0.01em;
+        margin: 0;
+    }
+}
+
+/* Consecutive typography margins */
+h1.ant-typography {
+    & + h2.ant-typography {
+        margin-top: 18px;
+    }
+}
+
+h1,h2,h3,h4,h5,h6{
+    &.ant-typography{
+        & + span.ant-typography {
+            margin-top: 20px;
+            margin-bottom: 26px;
+        }
+    }
+}
+
+.ant-spin-container{
+    min-height: 100px;
+}
+/* Table */
+.ant-table {
+    white-space: nowrap;
+}
+
+.ant-table-header {
+    table tr th{
+        background-color: white !important;
+        border-bottom: 1px solid @primary-color !important;
+        color: #595959 !important;
+    }
+}
+
+.ant-table-column-sorter {
+    margin-left: 2px;
+}
+
+.ant-table-body{
+    table tr td {
+        border: 0px;
+        border-top: 5px solid white !important; 
+        height:50px ;
+        padding-bottom: 0px !important;
+        padding-top: 0px !important;
+        color: #777777 !important;
+        min-width: 7rem;
+    }
+    table tr:nth-child(2n+1) td {
+        background-color: #fefefe !important;
+    }
+    
+    table tr:nth-child(2n) td {
+        background-color: #f4f4f4 !important;
+    }
+    
+    table {
+        table-layout: unset !important;
+    }
+
+    .ant-table-row-level-1:nth-child(2n+1) td{
+        background-color: #dcf3ef !important;
+    }
+
+    .ant-table-row-level-1:nth-child(2n) td{
+        background-color: #dfebf9 !important;
+    }
+}
+
+.ant-table-content {
+    table tr th{
+        background-color: white;
+        border-bottom: 1px solid @primary-color;
+        color: #595959;
+    }
+    table tr td {
+        border: 0px;
+        border-top: 10px solid white !important; 
+        color: #777777;
+    }
+}
+
+.ant-pagination-item-active {
+    color: white !important;
+    border-color: unset !important;
+    background: linear-gradient(90deg, #028F73 0%, #1FB89A 100%) !important;
+}
+
+.ant-pagination-item-active a{
+    color: white !important;
+}
+
+.ant-pagination-item {
+    border: 0px !important;
+}
+
+/* scroll bar style*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+  
+::-webkit-scrollbar-track {
+    background: #dbdbdb; 
+    border-radius: 6px;
+}
+   
+::-webkit-scrollbar-thumb {
+    background: #ddc08d; 
+    border-radius: 6px;
+}
+
+.anticon-left {
+    content: url('./resources/common/time_range_arrow.png') !important;
+    transform: rotate(180deg);
+    max-inline-size: 9px;
+    margin: 7px;
+}
+
+.anticon-right {
+    content: url('./resources/common/time_range_arrow.png') !important;
+    max-inline-size: 9px;
+    margin: 7px;
+}
+
+.ant-pagination-item-link {
+    border-color: #ddc08d !important;
+}
+
+.anticon-caret-down.ant-table-column-sorter-down{
+    margin-top: 5px;
+    content: url("./resources/common/table_sorting_down.png") !important;
+    display: none;
+}
+
+.anticon-caret-up.ant-table-column-sorter-up{
+    margin-top: 5px;
+    content: url("./resources/common/table_sorting_up.png") !important;
+    display: none;
+}
+
+.anticon-caret-up.ant-table-column-sorter-up.active{
+    display: block;
+}
+
+.anticon-caret-down.ant-table-column-sorter-down.active{
+    display: block;
+}
+
+.anticon.anticon-close.ant-modal-close-icon {
+    content: url("./resources/common/whitecross.png") !important;
+    max-inline-size: 12px;
+}
+
+.ant-table-thead th.ant-table-column-sort{
+    background: white !important;
+}
+
+/* defaults for our setup */
+#root {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+  }
+
+.ant-layout-content {
+    padding: 0 32px;
+}
