@@ -71,6 +71,7 @@ export class AppState {
     
     doLogout=()=> {
         localStorage.removeItem("token");
+        localStorage.removeItem("currentUser");
         this.currentUser = undefined;
     }
 
