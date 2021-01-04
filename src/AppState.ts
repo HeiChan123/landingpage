@@ -69,8 +69,7 @@ export class AppState {
         return true;
     }
     
-    doLogout() {
-        console.log("this: ", this)
+    doLogout=()=> {
         localStorage.removeItem("token");
         this.currentUser = undefined;
     }
