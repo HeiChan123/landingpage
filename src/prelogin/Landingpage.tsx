@@ -31,7 +31,7 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
     let handleLogin = async (values: any) => {
         const loggedIn = await appState.doLogin(values.username, values.password);
         if (loggedIn) {
-            history.replace(target);         
+            history.replace(target);
         } else {
             setFailed(true);
         }
@@ -42,7 +42,7 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
             <div style={{ margin: "auto", width: "30%", textAlign: "center" }}>
                 <div >Sign in your account</div>
                 <br />
-                <Input placeholder="Username" />
+                {/* <Input placeholder="Username" />
                 <br />
                 <br />
                 <Input placeholder="Password" />
@@ -55,12 +55,8 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
                     <Button type="default" style={{ width: "45%", marginLeft: "5%" }}>
                         VOICE LOGIN
                     </Button>
-                </div>
-            </div>
-            <div style={{ bottom: "0", margin: "0 auto", padding:"1rem" }}>
-                <Typography>{"Copyright © 2020 GENTERA, All Rights Reserved."}</Typography>
-            </div>
-            <Form
+                </div> */}
+                <Form
                     name="basic"
                     initialValues={{}}
                     onFinish={handleLogin}
@@ -79,13 +75,22 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
                     >
                         <Input.Password placeholder={"Password"} name="password" size={"large"} />
                     </Form.Item>
+                    <div style={{ textAlign: "right" }}>Forget Password?</div>
                     &nbsp;
                     <Form.Item>
-                        <Button type="primary" size={"large"} shape={"round"} htmlType="submit">
+                        <Button type="primary" style={{ width: "45%", marginRight: "5%" }} size={"large"} shape={"round"} htmlType="submit">
                             Login
+                    </Button>
+                        <Button type="default" style={{ width: "45%", marginLeft: "5%" }} size={"large"} shape={"round"}>
+                            VOICE LOGIN
                     </Button>
                     </Form.Item>
                 </Form>
+            </div>
+            <div style={{ bottom: "0", margin: "0 auto", padding: "1rem" }}>
+                <Typography>{"Copyright © 2020 GENTERA, All Rights Reserved."}</Typography>
+            </div>
+
             {/* <div style={{ margin: "auto 0 0 auto", textAlign:"right" }}>
                 <img src={trynow} style={{width:"50%", position: "absolute", zIndex:10}}></img>
             </div> */}
