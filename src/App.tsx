@@ -9,30 +9,54 @@ import {
     Route,
     Redirect,
 } from "react-router-dom";
+import { RouteProps } from "react-router";
+import { AppState } from "./AppState";
+
 import "./antd-theme.less";
 import 'antd/dist/antd.css';
 
-const App = observer(() => {
+interface PrivateRouteProps extends RouteProps {
+    loggedIn: boolean
+}
 
-  return (
-      <Switch>
-          <Route exact path="/">
-              <Landingpage />
-          </Route>
-          <Route path="/lobby">
-              <Lobby />
-          </Route>
-          { /* Authenticated routes are nested under `/bo`, and handled by the main component */}
-          {/* <PrivateRoute loggedIn={appState.isLoggedIn()} path="/bo/*">
-              <BackofficeUI appState={appState} />
-          </PrivateRoute> */}
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ loggedIn, children, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={({ location }) =>
+                loggedIn ? (
+                    children
+                ) : (
+                        <Redirect
+                            to={{
+                                pathname: "/",
+                                state: { from: location }
+                            }}
+                        />
+                    )
+            }
+        />
+    );
+};
 
-          { /* Something else?! */}
-          <Route path="*">
-              <p>Page not found :(</p>
-          </Route>
-      </Switch>
-  );
+const App = observer(({ appState }: { appState: AppState }) => {
+
+    return (
+        <Switch>
+            <Route exact path="/">
+                <Landingpage appState={appState} />
+            </Route>
+            { /* Authenticated routes are nested under `/bo`, and handled by the main component */}
+            <PrivateRoute loggedIn={appState.isLoggedIn()} path="/lobby">
+                <Lobby appState={appState} />
+            </PrivateRoute>
+
+            { /* Something else?! */}
+            <Route path="*">
+                <p>Page not found :(</p>
+            </Route>
+        </Switch>
+    );
 });
 
 export default App;

@@ -17,8 +17,9 @@ import FISHING from "../resources/fishinmg.png";
 
 import { Modal, Typography } from 'antd';
 import { observer } from 'mobx-react';
+import { AppState } from '../AppState';
 
-const LandingPage = observer(() => {
+const LandingPage = observer(({ appState }: { appState: AppState }) => {
     return (
         <div style={{ width: "100%", backgroundImage: `url(${bg})`, backgroundSize: "cover" }}>
             <div style={{ background: "#4cd6c7" }}>
