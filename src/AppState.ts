@@ -12,14 +12,14 @@ enum TokenKind {
     ADMIN = 2
 }
 
-interface AgentLoginResponse {
+interface PlayerLoginResponse {
     status: LoginResponseCode;
 
     userId: number;
     username: string;
     tokenKind: number;
 
-    // A JWT carrying an AgentLoginResponsePayload.
+    // A JWT carrying an PlayerLoginResponsePayload.
     token?: string;
 }
 
@@ -55,7 +55,7 @@ export class AppState {
             body: JSON.stringify({ username, password })
         });
 
-        const loginResponse: AgentLoginResponse = await response.json();
+        const loginResponse: PlayerLoginResponse = await response.json();
         if (loginResponse.status !== LoginResponseCode.OK) {
             return false;
         }
