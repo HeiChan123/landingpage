@@ -40,10 +40,10 @@ export class AppState {
     @observable
     currentUser: string | undefined = localStorage.getItem("currentUser") ?? undefined;
 
-    storedAgentId = localStorage.getItem("agentId");
+    storedPlayerId = localStorage.getItem("playerId");
 
     @observable
-    agentId: number | undefined = this.storedAgentId ? Number.parseInt(this.storedAgentId) : undefined;
+    playerId: number | undefined = this.storedPlayerId ? Number.parseInt(this.storedPlayerId) : undefined;
 
     // The logged-in entity kind, harvested from the login token.
     tokenKind: TokenKind = -1;
@@ -61,10 +61,10 @@ export class AppState {
         }
         localStorage.setItem("token", loginResponse.token!);
         this.currentUser = loginResponse.username;
-        this.agentId = loginResponse.userId;
+        this.playerId = loginResponse.userId;
         this.tokenKind = loginResponse.tokenKind;
         localStorage.setItem("currentUser", this.currentUser);
-        localStorage.setItem("agentId", this.agentId + "");
+        localStorage.setItem("playerId", this.playerId + "");
 
         return true;
     }
@@ -79,8 +79,8 @@ export class AppState {
         return !!this.currentUser;
     }
 
-    set agent(agentId: number | undefined) {
-        this.agentId = agentId;
+    set agent(playerId: number | undefined) {
+        this.playerId = playerId;
     }
 
 }
