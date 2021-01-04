@@ -29,7 +29,7 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
                     <img src={refresh} style={{ margin: "1rem", blockSize: "30px" }}></img>
                     <img src={usericon} style={{ margin: "1rem", blockSize: "30px" }}></img>
                     <img src={volume} style={{ margin: "1rem", blockSize: "30px" }}></img>
-                    <img src={menu} style={{ margin: "1rem", blockSize: "30px" }}></img>
+                    <img src={menu} style={{ margin: "1rem", blockSize: "30px" }} onClick={appState.doLogout}></img>
                 </div>
             </div>
             <div style={{ display: "flex", margin: "1rem", placeContent: "center" }}>

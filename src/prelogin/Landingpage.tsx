@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input, Button, Typography, Alert, Form } from 'antd';
 import { observer } from 'mobx-react';
 import bg from "../resources/BG.png"
-import trynow from "../resources/trynow-BG-image.png"
+// import trynow from "../resources/trynow-BG-image.png"
 import { AppState } from '../AppState';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -31,6 +31,7 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
     let handleLogin = async (values: any) => {
         const loggedIn = await appState.doLogin(values.username, values.password);
         if (loggedIn) {
+            console.log("target: ",target)
             history.replace(target);
         } else {
             setFailed(true);

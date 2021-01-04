@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { observer } from "mobx-react";
 import Landingpage from "./prelogin/Landingpage"
@@ -20,6 +19,7 @@ interface PrivateRouteProps extends RouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ loggedIn, children, ...rest }) => {
+    console.log(loggedIn)
     return (
         <Route
             {...rest}
@@ -46,7 +46,7 @@ const App = observer(({ appState }: { appState: AppState }) => {
             <Route exact path="/">
                 <Landingpage appState={appState} />
             </Route>
-            { /* Authenticated routes are nested under `/bo`, and handled by the main component */}
+
             <PrivateRoute loggedIn={appState.isLoggedIn()} path="/lobby">
                 <Lobby appState={appState} />
             </PrivateRoute>

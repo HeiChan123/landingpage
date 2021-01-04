@@ -48,7 +48,7 @@ export class AppState {
     // The logged-in entity kind, harvested from the login token.
     tokenKind: TokenKind = -1;
 
-    async doLogin(username: string, password: string) {
+    doLogin = async (username: string, password: string) => {
         const response = await fetch(getBaseUri() + "/api/authenticate_player", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -59,7 +59,6 @@ export class AppState {
         if (loginResponse.status !== LoginResponseCode.OK) {
             return false;
         }
-
         localStorage.setItem("token", loginResponse.token!);
         this.currentUser = loginResponse.username;
         this.agentId = loginResponse.userId;
@@ -69,12 +68,9 @@ export class AppState {
 
         return true;
     }
-
-    isAdmin() {
-        return this.tokenKind == TokenKind.ADMIN;
-    }
-
+    
     doLogout() {
+        console.log("this: ", this)
         localStorage.removeItem("token");
         this.currentUser = undefined;
     }
