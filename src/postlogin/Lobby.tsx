@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../resources/logo.png";
 
 import T_doller_icon from "../resources/T_doller_icon.png";
@@ -17,15 +17,49 @@ import FISHING from "../resources/fishinmg.png";
 
 import { Modal, Typography } from 'antd';
 import { observer } from 'mobx-react';
-import { AppState } from '../AppState';
+import { AppState, getBaseUri } from '../AppState';
 
 const LandingPage = observer(({ appState }: { appState: AppState }) => {
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        getPlayerBalance();
+        loginSa();
+    })
+
+    const getPlayerBalance = async () => {
+        const response = await fetch(getBaseUri() + "/api/get_player_balance", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const playerBalance = await response.json();
+        return playerBalance;
+    }
+
+    const loginSa = async () => {
+        const response = await fetch(getBaseUri() + "/api/player_login_sa", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const saResponse = await response.json();
+        return saResponse;
+    }
+
+
     return (
         <div style={{ width: "100%", backgroundImage: `url(${bg})`, backgroundSize: "cover" }}>
             <div style={{ background: "#4cd6c7" }}>
                 <div style={{ display: "flex", placeContent: "flex-end" }}>
                     <img src={T_doller_icon} style={{ margin: "1rem", blockSize: "30px" }}></img>
-                    <Typography style={{ color: "white", alignSelf: "center" }}>$123,234,342</Typography>
+                    <Typography style={{ color: "white", alignSelf: "center" }}>{`${getPlayerBalance}`}</Typography>
                     <img src={refresh} style={{ margin: "1rem", blockSize: "30px" }}></img>
                     <img src={usericon} style={{ margin: "1rem", blockSize: "30px" }}></img>
                     <img src={volume} style={{ margin: "1rem", blockSize: "30px" }}></img>
@@ -68,6 +102,7 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
                     <Typography><b>FISHING GAME</b></Typography>
                 </div>
             </div>
+            {/* <iframe src={loginSa} title=""></iframe> */}
         </div>
     )
 });
