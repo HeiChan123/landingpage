@@ -48,6 +48,10 @@ export class AppState {
     // The logged-in entity kind, harvested from the login token.
     tokenKind: TokenKind = -1;
 
+    balance: number = 0;
+
+    saUrl: string = "";
+
     doLogin = async (username: string, password: string) => {
         const response = await fetch(getBaseUri() + "/api/authenticate_player", {
             method: 'POST',
@@ -65,11 +69,41 @@ export class AppState {
         this.tokenKind = loginResponse.tokenKind;
         localStorage.setItem("currentUser", this.currentUser);
         localStorage.setItem("playerId", this.playerId + "");
-
+        // this.getPlayerBalance();
+        // this.loginSa();
         return true;
     }
-    
-    doLogout=()=> {
+
+    // getPlayerBalance = async () => {
+    //     const response = await fetch(getBaseUri() + "/api/get_player_balance", {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${localStorage.getItem("token")}`
+    //         }
+    //     });
+
+    //     const playerBalance = await response.json();
+    //     this.balance = +playerBalance?.balance;
+    //     return true;
+    // }
+
+    // loginSa = async () => {
+    //     const response = await fetch(getBaseUri() + "/api/player_login_sa", {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${localStorage.getItem("token")}`
+    //         }
+    //     });
+
+    //     const saResponse = await response.json();
+    //     this.saUrl = saResponse.url;
+    //     return saResponse.url;
+    // }
+
+
+    doLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("currentUser");
         this.currentUser = undefined;

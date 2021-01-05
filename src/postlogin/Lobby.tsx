@@ -18,14 +18,17 @@ import FISHING from "../resources/fishinmg.png";
 import { Modal, Typography } from 'antd';
 import { observer } from 'mobx-react';
 import { AppState, getBaseUri } from '../AppState';
+import "./Lobby.less"
 
 const LandingPage = observer(({ appState }: { appState: AppState }) => {
+    const [url, setUrl] = useState("");
+    const [balance, setBalance] = useState(0);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         getPlayerBalance();
         loginSa();
-    })
+    }, [])
 
     const getPlayerBalance = async () => {
         const response = await fetch(getBaseUri() + "/api/get_player_balance", {
@@ -37,7 +40,8 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
         });
 
         const playerBalance = await response.json();
-        return playerBalance;
+        setBalance(+playerBalance?.balance)
+        return true;
     }
 
     const loginSa = async () => {
@@ -50,7 +54,8 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
         });
 
         const saResponse = await response.json();
-        return saResponse;
+        setUrl(saResponse.url)
+        return true;
     }
 
 
@@ -59,11 +64,11 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
             <div style={{ background: "#4cd6c7" }}>
                 <div style={{ display: "flex", placeContent: "flex-end" }}>
                     <img src={T_doller_icon} style={{ margin: "1rem", blockSize: "30px" }}></img>
-                    <Typography style={{ color: "white", alignSelf: "center" }}>{`${getPlayerBalance}`}</Typography>
-                    <img src={refresh} style={{ margin: "1rem", blockSize: "30px" }}></img>
+                    <Typography style={{ color: "white", alignSelf: "center" }}>{`${balance}`}</Typography>
+                    <img src={refresh} style={{ margin: "1rem", blockSize: "30px", cursor: "pointer" }} onClick={getPlayerBalance}></img>
                     <img src={usericon} style={{ margin: "1rem", blockSize: "30px" }}></img>
                     <img src={volume} style={{ margin: "1rem", blockSize: "30px" }}></img>
-                    <img src={menu} style={{ margin: "1rem", blockSize: "30px" }} onClick={appState.doLogout}></img>
+                    <img src={menu} style={{ margin: "1rem", blockSize: "30px", cursor: "pointer" }} onClick={appState.doLogout}></img>
                 </div>
             </div>
             <div style={{ display: "flex", margin: "1rem", placeContent: "center" }}>
@@ -102,7 +107,9 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
                     <Typography><b>FISHING GAME</b></Typography>
                 </div>
             </div>
-            {/* <iframe src={loginSa} title=""></iframe> */}
+            <div className="container">
+                <iframe src={url} className="responsive-iframe"></iframe>
+            </div>
         </div>
     )
 });
