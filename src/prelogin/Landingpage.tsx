@@ -8,6 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 const LandingPage = observer(({ appState }: { appState: AppState }) => {
     const [failed, setFailed] = useState(false);
+    const [message, setMessage] = useState("");
 
     // Figure out where we should go if the login is successful.
     // If we got here by clicking a link to `/bo/whatever`, we want to go there post-login.
@@ -29,12 +30,18 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
 
     // Invoke the login validator and either display the error, or action the login.
     let handleLogin = async (values: any) => {
-        const loggedIn = await appState.doLogin(values.username, values.password);
-        if (loggedIn) {
-            console.log("target: ",target)
+        const errorCode = await appState.doLogin(values.username, values.password);
+        if (!errorCode) {
+            console.log("target: ", target)
             history.replace(target);
         } else {
             setFailed(true);
+            if (errorCode == 2) {
+                setMessage("The account is not active");
+            } else {
+                setMessage("Wrong username or password");
+            }
+
         }
     };
 
@@ -62,7 +69,7 @@ const LandingPage = observer(({ appState }: { appState: AppState }) => {
                     initialValues={{}}
                     onFinish={handleLogin}
                 >
-                    {failed && <Alert message="Wrong username or password" type="error" closable onClose={() => setFailed(false)} />}
+                    {failed && <Alert message={message} type="error" closable onClose={() => setFailed(false)} />}
                     <Form.Item
                         name="username"
                         rules={[{ required: true, message: 'Please input your username' }]}

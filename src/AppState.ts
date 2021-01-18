@@ -3,7 +3,8 @@ import packageJson from '../package.json';
 
 enum LoginResponseCode {
     OK = 0,
-    INVALID_CREDENTIALS = 1
+    INVALID_CREDENTIALS = 1,
+    ACCOUNT_DISABLED = 2,
 }
 
 enum TokenKind {
@@ -61,7 +62,7 @@ export class AppState {
 
         const loginResponse: PlayerLoginResponse = await response.json();
         if (loginResponse.status !== LoginResponseCode.OK) {
-            return false;
+            return loginResponse.status;
         }
         localStorage.setItem("token", loginResponse.token!);
         this.currentUser = loginResponse.username;
@@ -71,7 +72,7 @@ export class AppState {
         localStorage.setItem("playerId", this.playerId + "");
         // this.getPlayerBalance();
         // this.loginSa();
-        return true;
+        return loginResponse.status;
     }
 
     // getPlayerBalance = async () => {
